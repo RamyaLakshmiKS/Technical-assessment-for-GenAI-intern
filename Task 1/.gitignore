@@ -1,0 +1,5 @@
+# Ignore data and config files in Task 1 submission
+/data/
+/config/
+*.pyc
+__pycache__/

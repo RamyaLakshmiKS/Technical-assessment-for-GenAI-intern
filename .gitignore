@@ -1,0 +1,7 @@
+# Ignore secrets, API keys, data, and intermediate files
+config/secrets.toml
+.env
+*.env
+data/
+__pycache__/
+*.pyc

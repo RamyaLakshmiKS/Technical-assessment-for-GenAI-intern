@@ -1,0 +1,9 @@
+# Requirements for Task 1
+sec-downloader
+langchain
+langchain-community
+langchain-huggingface
+torch
+tqdm
+glob2
+requests

@@ -34,23 +34,6 @@ def load_embeddings_and_vector_store():
         model_name="sentence-transformers/all-mpnet-base-v2",
         model_kwargs={"device": "cuda" if torch.cuda.is_available() else "cpu"}
     )
-    # If you want to re-chunk and re-index, uncomment below:
-    # filings_dir = "./data/10k_filings"
-    # import glob
-    # from langchain_community.docstore.document import Document
-    # documents = []
-    # for file_path in glob.glob(os.path.join(filings_dir, "**/*.txt"), recursive=True):
-    #     with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-    #         text = f.read()
-    #     doc = Document(page_content=text, metadata={"source": file_path})
-    #     documents.append(doc)
-    # text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=300)
-    # texts = text_splitter.split_documents(documents)
-    # from langchain_community.vectorstores import FAISS
-    # vector_store = FAISS.from_documents(texts, embeddings)
-    # vector_store.save_local(FAISS_INDEX_PATH)
-    # return embeddings, vector_store
-    # Otherwise, just load the existing index:
     vector_store = FAISS.load_local(FAISS_INDEX_PATH, embeddings, allow_dangerous_deserialization=True)
     return embeddings, vector_store
 
@@ -72,7 +55,6 @@ def get_company_retriever(vector_store, company):
     return vector_store.as_retriever(search_kwargs={"filter": company_filter})
 
 def run_qa(qa_chain, question):
-    # Use .invoke() as per LangChain deprecation warning
     try:
         # Custom prompt: encourage synthesis and table/list extraction
         custom_prompt = (

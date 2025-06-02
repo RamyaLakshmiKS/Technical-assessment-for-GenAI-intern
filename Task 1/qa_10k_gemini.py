@@ -3,6 +3,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.chains import RetrievalQA
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 import torch
 import toml
 import os
@@ -29,7 +30,6 @@ SECRETS_PATH = "config/secrets.toml"
 
 def load_embeddings_and_vector_store():
     # Use smaller chunk size and more overlap for better context
-    from langchain.text_splitter import RecursiveCharacterTextSplitter
     embeddings = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-mpnet-base-v2",
         model_kwargs={"device": "cuda" if torch.cuda.is_available() else "cpu"}

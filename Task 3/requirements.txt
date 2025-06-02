@@ -1,0 +1,9 @@
+pandas
+numpy
+langchain
+langchain-google-genai
+langchain-huggingface
+langchain-community
+scikit-learn
+tqdm
+toml

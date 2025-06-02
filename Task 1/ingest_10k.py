@@ -21,7 +21,7 @@ def download_10k_filings(companies, output_dir="./data/10k_filings"):
         logging.info(f"Downloading 10-Q for {ticker}")
         try:
             metadatas = downloader.get_filing_metadatas(ticker)
-            print(f"Metadata for {ticker}: {metadatas}")  # DEBUG: print the metadata structure
+            print(f"Metadata for {ticker}: {metadatas}")  
             if not metadatas:
                 logging.error(f"No 10-Q filings found for {ticker}")
                 continue
@@ -62,7 +62,7 @@ def parse_and_chunk_filings(filings_dir):
             text = f.read()
         doc = Document(page_content=text, metadata={"source": file_path})
         documents.append(doc)
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=200)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=300)
     return text_splitter.split_documents(documents)
 
 def create_and_save_vector_store(texts, output_path="./data/faiss_index_10k", batch_size=32):
